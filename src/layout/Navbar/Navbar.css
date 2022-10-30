@@ -1,0 +1,76 @@
+/* For mobile */
+
+.Navbar-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: Black;
+    text-align: center;
+    gap: 2rem;
+    width: 100%;
+    padding-block: 2rem;
+}
+
+.Navbar-left,
+.Navbar-right {
+    z-index: 10;
+}
+
+.Navbar-left,
+.Navbar-right {
+    padding-inline: 2rem;
+}
+
+.Navbar-options {
+    display: none;
+}
+
+.Navbar-list,
+.Navbar-left ul,
+.Navbar-right ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.Navbar-list li,
+.Navbar-left ul li,
+.Navbar-right ul li {
+    display: inline-flex;
+}
+
+.Navbar-left a,
+.Navbar-right a,
+.Navbar-list li a {
+    text-decoration: none;
+    color: white;
+}
+
+/* .Navbar-left ul li > span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    cursor: pointer;
+} */
+
+/* For desktop */
+
+@media (min-width: 768px) {
+    .Navbar-main {
+        flex-direction: row;
+    }
+
+    .Navbar-options {
+        display: block;
+    }
+
+    .Navbar-list li {
+        padding-inline: min(0.2rem, 0.5rem);
+    }
+}
