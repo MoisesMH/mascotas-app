@@ -9,7 +9,7 @@ const Banner = () => {
             className="me-2"
             src="https://media.perezlara.com/2021/02/Adopcio%CC%81n-de-mascotas-1.png"
             fluid={true}
-            width={1500}
+            width={1540}
             />
         </div>
     )
