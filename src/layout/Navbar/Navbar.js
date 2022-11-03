@@ -1,5 +1,5 @@
 import React from 'react'
-import Hamburger from '../../components/Hamburger'
+import Hamburger from '../../components/Hamburger.component'
 import './Navbar.css'
 
 function Navbar({ enableNavside }) {

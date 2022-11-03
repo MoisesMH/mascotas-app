@@ -1,6 +1,6 @@
 import React from "react";
 import useToggleState from "../hooks/useToggleState";
-import "./Hamburger.css"
+import "../styles/Hamburger.css"
 
 function Hamburger({ toggleNavSide }) {
     const [isAriaExpanded, toggleAriaExpanded] = useToggleState()

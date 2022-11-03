@@ -1,5 +1,5 @@
 import React from "react";
-import MascotaList from "../components/MascotaList";
+import MascotaList from "../components/MascotaList.component";
 //import Navbar from "./layout/Navbar/Navbar";
 import Navbar from "../components/Navbar.component";
 import "../styles/MascotasApp.css";
