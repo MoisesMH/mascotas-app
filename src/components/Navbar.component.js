@@ -58,13 +58,13 @@ const Navbar = (props) => {
                                     {
                                         (
                                             () => {
-                                                if (props.ubicacion == 'procesoRegistro1') {
+                                                if (props.ubicacion == 'RegistroPage') {
                                                     return (
-                                                        <button className="nav-link btn active">Abrir Cuenta</button>
+                                                        <button className="nav-link btn active">Registrarse</button>
                                                     )
                                                 } else {
                                                     return (
-                                                        <button className="nav-link btn">Registrarse</button>
+                                                        <button className="nav-link btn" onClick={() => props.redireccionamiento('/RegistroPage')}>Registrarse</button>
                                                     )
                                                 }
                                             })()

@@ -2,6 +2,7 @@ import MascotasApp from './HomePage';
 import { Route, Routes, Navigate, Switch } from 'react-router-dom';
 import NosotrosPage from './NosotrosPage';
 import InicioSesionPage from './InicioSesionPage';
+import RegistroPage from './RegistroPage';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Route path='/HomePage' element={<MascotasApp />} />
       <Route exact path="/NosotrosPage" element={<NosotrosPage />} />
       <Route path='/IniciarSesionPage' element={<InicioSesionPage /> } />
+      <Route path='/RegistroPage' element={<RegistroPage/>}/>
       </Routes>
     </div>
   );
