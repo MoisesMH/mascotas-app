@@ -6,10 +6,20 @@ import {useState, useEffect} from 'react'
 import { guardarPaginasAnteriores, EntregarPaginaAnterior } from "../dao/paginas_anteriores_local"
 import { guardarDatoTipoUsuario } from "../dao/usuario_local"
 import { obtenerDatoTipoUsuario } from "../dao/usuario_local";
+import { firebaseApp } from "../config/FirebaseApp";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+
+
+
 
 const InicioSesionPage = () => {
     
+
+    const auth = getAuth(firebaseApp)
+
     const [tipoDeUsuario, setTipoDeUsuario] = useState(2);
+
+    
 
     useEffect(() => {
 
@@ -28,12 +38,22 @@ const InicioSesionPage = () => {
 
 
  
-    const IniciarSesion = () => {
+    async function IniciarSesion(email, password) {
+        try {
+            const InfoUsuario = await signInWithEmailAndPassword(auth, email, password).then((usuarioFirebase) => {
+            return usuarioFirebase
+        })
+
         guardarDatoTipoUsuario(1)
-        window.location.href = '/'
+        window.location.href="/"
+
+        
+    } catch(error) {
+            console.log("Error en el login")
+        }
+
     }
     
-
     // DIRECCION DE LA PAGINA ACTUAL
     const direccionActual = '/IniciarSesionPage'
     //  SOLO SIRVE PARA EL PROPS ubicacion

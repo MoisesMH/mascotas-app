@@ -4,9 +4,11 @@ import NosotrosPage from './NosotrosPage';
 import InicioSesionPage from './InicioSesionPage';
 import PostPage from './PostPage';
 import SearchPage from './SearchPage';
-// import RegistroPage from './RegistroPage';
+import RegistroPage from './RegistroPage';
 
 function App() {
+
+
   return (
     <div className="App">
       <Routes>
@@ -14,9 +16,9 @@ function App() {
         <Route path='/HomePage' element={<MascotasApp />} />
         <Route path="/NosotrosPage" element={<NosotrosPage />} />
         <Route path='/IniciarSesionPage' element={<InicioSesionPage />} />
-        <Route path='/adopta' element={<SearchPage />} />
+        <Route path='/RegistroPage' element={<RegistroPage />} />
+        <Route path='/SearchPage' element={<SearchPage />} />
         <Route path='/adopta/4' element={<PostPage />} />
-        {/* <Route path='/RegistroPage' element={<RegistroPage />} /> */}
       </Routes>
     </div>
   );

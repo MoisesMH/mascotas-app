@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
+import { Navbar } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import "../styles/Card.css";
 
+
 function Card({ title, sub1, sub2, sub3, link = null }) {
     // Set redirect switch
+    
+ 
     const [clicked, setClicked] = useState(false)
     const navigate = useNavigate()
     const handleClick = () => link && setClicked(true)
@@ -17,6 +21,7 @@ function Card({ title, sub1, sub2, sub3, link = null }) {
 
     return (
         <div className="Card" onClick={handleClick} >
+            
             <div className="Card__header">
                 <img src="https://source.unsplash.com/DziZIYOGAHc" alt="un perrito" />
             </div>

@@ -117,13 +117,13 @@ const Navbar = (props) => {
                                 {
                                     (
                                         () => {
-                                            if (props.ubicacion == 'l') {
+                                            if (props.ubicacion == 'SearchPage') {
                                                 return (
-                                                    <button className="nav-link btn active" onClick={() => { props.redireccionamiento('/') }}>Lista de Publicaciones</button>
+                                                    <button className="nav-link btn active" onClick={() => { props.redireccionamiento('/SearchPage') }}>Lista de Publicaciones</button>
                                                 )
                                             } else {
                                                 return (
-                                                    <button className="nav-link btn" onClick={() => { props.redireccionamiento('/') }}>Lista de Publicaciones</button>
+                                                    <button className="nav-link btn" onClick={() => { props.redireccionamiento('/SearchPage') }}>Lista de Publicaciones</button>
                                                 )
                                             }
                                         })()

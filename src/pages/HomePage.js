@@ -77,9 +77,6 @@ function MascotasApp() {
             <div className="MascotasApp-banner">
                 <Banner />
             </div>
-            <div className="MascotasApp-Section">
-                <MascotaList />
-            </div>
             <div className="MascotasApp-Footer">
                 <Footer 
                 redireccionamiento={ RedirigirAOtraPagina }/>
