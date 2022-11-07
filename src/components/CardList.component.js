@@ -1,26 +1,28 @@
 import React from "react";
 import Card from "./Card.component"
-import "../src/styles/CardList.css"
+import "../styles/CardList.css"
 
 function CardList() {
     return (
         <div className="CardList">
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
+            <div className="CardList--wrapper">
+                <Card link={'/adopta/4'} />
+                <Card link={'/adopta/4'} />
+                <Card link={'/adopta/4'} />
+                <Card link={'/adopta/4'} />
+                <Card link={'/adopta/4'} />
+                <Card link={'/adopta/4'} />
+                <Card link={'/adopta/4'} />
+                <Card link={'/adopta/4'} />
+                <Card link={'/adopta/4'} />
+                <Card link={'/adopta/4'} />
+                <Card link={'/adopta/4'} />
+                <Card link={'/adopta/4'} />
+                <Card link={'/adopta/4'} />
+                <Card link={'/adopta/4'} />
+                <Card link={'/adopta/4'} />
+                <Card link={'/adopta/4'} />
+            </div>
         </div>
     )
 }

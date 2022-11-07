@@ -4,7 +4,7 @@ import FormularioRegistro from "../components/FormularioRegistro.component"
 import Navbar from "../components/Navbar.component"
 import {useState} from 'react'
 import { guardarPaginasAnteriores, EntregarPaginaAnterior } from "../dao/paginas_anteriores_local"
-import { guardarDatoTipoCliente } from "../dao/cliente_local"
+import { guardarDatoTipoCliente } from "../dao/usuario_local"
 
 const RegistroPage = () => {
     

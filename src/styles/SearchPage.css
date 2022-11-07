@@ -1,0 +1,17 @@
+.SearchPage__main--container {
+    margin: 1rem;
+}
+
+@media (min-width: 784px) {
+
+    .SearchPage__main {
+        /* width: calc(784px + 12vw); */
+        /* display: flex; */
+        justify-content: flex-start;
+        width: 100vw;
+    }
+
+    .SearchPage__main--container {
+        flex-basis: 240rem;
+    }
+}
