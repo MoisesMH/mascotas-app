@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import MascotaList from "../components/MascotaList.component";
 //import Navbar from "./layout/Navbar/Navbar";
 import Navbar from "../components/Navbar.component";
@@ -10,7 +10,7 @@ import Banner from "../components/Banner.component";
 import {useState} from 'react';
 
 import { EntregarPaginaAnterior, guardarPaginasAnteriores } from "../dao/paginas_anteriores_local"
-import { guardarDatoTipoCliente, obtenerDatoTipoCliente } from "../dao/cliente_local"
+import { guardarDatoTipoUsuario, obtenerDatoTipoUsuario } from "../dao/usuario_local"
 
 
 // Esta es la página principal
@@ -19,14 +19,21 @@ function MascotasApp() {
 
     const [tipoDeUsuario, setTipoDeUsuario] = useState(2);
 
- 
-    const IniciarSesion = () => {
-        setTipoDeUsuario(1)
-    }
+    useEffect(() => {
 
-    const Salir = () => {
-        setTipoDeUsuario(2)
-    }
+        const AsyncUseEffect = async () => {
+            if(obtenerDatoTipoUsuario() == null) {
+                guardarDatoTipoUsuario(tipoDeUsuario)
+            }
+            else {
+                const dato = obtenerDatoTipoUsuario
+                setTipoDeUsuario(dato)
+            }
+        }
+        AsyncUseEffect()
+    }, [tipoDeUsuario]
+    )
+
 
     // DIRECCION DE LA PAGINA ACTUAL
     const direccionActual = '/HomePage'
@@ -37,14 +44,14 @@ function MascotasApp() {
     // Props: redireccionamiento    => Mantiene el tipo de usuario actual
     const RedirigirAOtraPagina = (direccion) => {
         guardarPaginasAnteriores(direccionActual)
-        guardarDatoTipoCliente(tipoDeUsuario)
+        guardarDatoTipoUsuario(tipoDeUsuario)
         window.location.href = direccion
     }
 
     // Props: salir                 => Elimina los datos del usuario actual
     const TerminarSesionActiva = () => {
         guardarPaginasAnteriores(direccionActual)
-        guardarDatoTipoCliente(2)
+        guardarDatoTipoUsuario(2)
         window.location.href = '/'
     }
 

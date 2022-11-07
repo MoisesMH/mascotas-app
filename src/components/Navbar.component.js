@@ -3,7 +3,6 @@ import { Image } from "react-bootstrap"
 
 const Navbar = (props) => {
     console.log(props.tipoDeUsuario)
-    
     if(props.tipoDeUsuario == 2) {
         return (
             <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -118,7 +117,7 @@ const Navbar = (props) => {
                                 {
                                     (
                                         () => {
-                                            if (props.ubicacion == 'CompraVenta') {
+                                            if (props.ubicacion == 'l') {
                                                 return (
                                                     <button className="nav-link btn active" onClick={() => { props.redireccionamiento('/') }}>Lista de Publicaciones</button>
                                                 )
@@ -134,7 +133,7 @@ const Navbar = (props) => {
                                 {
                                     (
                                         () => {
-                                            if (props.ubicacion == 'HistorialTrans') {
+                                            if (props.ubicacion == 'NosotrosPage') {
                                                 return (
                                                     <button className="nav-link btn active" onClick={() => { props.redireccionamiento('/NosotrosPage') }}>Nosotros</button>
                                                 )
@@ -151,7 +150,7 @@ const Navbar = (props) => {
                                 {
                                     (
                                         () => {
-                                            if (props.ubicacion == 'CompraVenta') {
+                                            if (props.ubicacion == 'l') {
                                                 return (
                                                     <button className="nav-link btn active" onClick={() => { props.redireccionamiento('/') }}>Blog</button>
                                                 )
@@ -170,11 +169,11 @@ const Navbar = (props) => {
                                         () => {
                                             if (props.ubicacion == 'CompraVenta') {
                                                 return (
-                                                    <button className="nav-link btn active" onClick={() => { props.redireccionamiento('/CompraVenta') }}>Contactenos</button>
+                                                    <button className="nav-link btn active" onClick={() => { props.redireccionamiento('/') }}>Contactenos</button>
                                                 )
                                             } else {
                                                 return (
-                                                    <button className="nav-link btn" onClick={() => { props.redireccionamiento('/CompraVenta') }}>Contactenos</button>
+                                                    <button className="nav-link btn" onClick={() => { props.redireccionamiento('/') }}>Contactenos</button>
                                                 )
                                             }
                                         })()

@@ -1,15 +1,31 @@
 import Navbar from "../components/Navbar.component"
 import Footer from "../components/Footer.component"
 import Nosotros from "../components/Nosotros.component"
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { guardarPaginasAnteriores, EntregarPaginaAnterior } from "../dao/paginas_anteriores_local"
-import { guardarDatoTipoCliente } from "../dao/cliente_local"
+import { guardarDatoTipoUsuario, obtenerDatoTipoUsuario } from "../dao/usuario_local"
 
 
 
 const NosotrosPage = () => {
 
     const [tipoDeUsuario, setTipoDeUsuario] = useState(2);
+
+
+    useEffect(() => {
+
+        const AsyncUseEffect = async () => {
+            if(obtenerDatoTipoUsuario() == null) {
+                guardarDatoTipoUsuario(tipoDeUsuario)
+            }
+            else {
+                const dato = obtenerDatoTipoUsuario
+                setTipoDeUsuario(dato)
+            }
+        }
+        AsyncUseEffect()
+    }, [tipoDeUsuario]
+    )
 
     
     // DIRECCION DE LA PAGINA ACTUAL
@@ -22,7 +38,7 @@ const NosotrosPage = () => {
     // Props: redireccionamiento    => Mantiene el tipo de usuario actual
     const RedirigirAOtraPagina = (direccion) => {
         guardarPaginasAnteriores(direccionActual)
-        guardarDatoTipoCliente(tipoDeUsuario)
+        guardarDatoTipoUsuario(tipoDeUsuario)
         window.location.href = direccion
     }
 

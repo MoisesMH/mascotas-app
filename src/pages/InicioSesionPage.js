@@ -2,22 +2,37 @@ import React from "react";
 import Footer from "../components/Footer.component"
 import FormularioInicioSesion from "../components/FormularioInicioSesion.component"
 import Navbar from "../components/Navbar.component"
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import { guardarPaginasAnteriores, EntregarPaginaAnterior } from "../dao/paginas_anteriores_local"
-import { guardarDatoTipoCliente } from "../dao/cliente_local"
+import { guardarDatoTipoUsuario } from "../dao/usuario_local"
+import { obtenerDatoTipoUsuario } from "../dao/usuario_local";
 
 const InicioSesionPage = () => {
     
     const [tipoDeUsuario, setTipoDeUsuario] = useState(2);
 
+    useEffect(() => {
+
+        const AsyncUseEffect = async () => {
+            if(obtenerDatoTipoUsuario() == null) {
+                guardarDatoTipoUsuario(tipoDeUsuario)
+            }
+            else {
+                const dato = obtenerDatoTipoUsuario
+                setTipoDeUsuario(dato)
+            }
+        }
+        AsyncUseEffect()
+    }, [tipoDeUsuario]
+    )
+
+
  
     const IniciarSesion = () => {
-        setTipoDeUsuario(1)
+        guardarDatoTipoUsuario(1)
+        window.location.href = '/'
     }
-
-    const Salir = () => {
-        setTipoDeUsuario(2)
-    }
+    
 
     // DIRECCION DE LA PAGINA ACTUAL
     const direccionActual = '/IniciarSesionPage'
@@ -28,14 +43,14 @@ const InicioSesionPage = () => {
     // Props: redireccionamiento    => Mantiene el tipo de usuario actual
     const RedirigirAOtraPagina = (direccion) => {
         guardarPaginasAnteriores(direccionActual)
-        guardarDatoTipoCliente(tipoDeUsuario)
+        guardarDatoTipoUsuario(tipoDeUsuario)
         window.location.href = direccion
     }
 
     // Props: salir                 => Elimina los datos del usuario actual
     const TerminarSesionActiva = () => {
         guardarPaginasAnteriores(direccionActual)
-        guardarDatoTipoCliente(2)
+        guardarDatoTipoUsuario(2)
         window.location.href = '/'
     }
 
@@ -57,7 +72,8 @@ const InicioSesionPage = () => {
         salir={TerminarSesionActiva}
         ubicacion={ubicacionActual}
         />
-        <FormularioInicioSesion/>
+        <FormularioInicioSesion
+        iniciarSesion={IniciarSesion}/>
         <Footer
         redireccionamiento={RedirigirAOtraPagina}/>
         </div>

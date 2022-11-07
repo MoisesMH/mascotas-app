@@ -1,6 +1,6 @@
 import { Image } from "react-bootstrap"
 
-const FormularioInicioSesion = () => {
+const FormularioInicioSesion = (props) => {
     return (
         <div className="row">
         <div className="col-md-3">
@@ -29,7 +29,7 @@ const FormularioInicioSesion = () => {
         <input type="password" className="form-control" id="exampleInputPassword1"/>
         </div>
         <div class="d-grid gap-2 col-6 mx-auto mt-5">
-        <button class="btn btn-primary" type="button">Iniciar Sesión</button>
+        <button class="btn btn-primary" type="button" onClick={() => {props.iniciarSesion()}}>Iniciar Sesión</button>
         </div>
         <div class="d-grid gap-2 col-6 mx-auto mt-2">
         <button class="btn btn-link" type="button">¿Olvidó su contraseña?</button>
