@@ -76,7 +76,7 @@ function PostPage() {
                 {/* <h1>Hola</h1> */}
             </div>
             <div className="PostPage_footer">
-                <Footer
+                <Footer 
                 redireccionamiento={RedirigirAOtraPagina}
                 />
             </div>

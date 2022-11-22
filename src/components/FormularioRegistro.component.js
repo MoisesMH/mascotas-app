@@ -106,7 +106,7 @@ const FormularioRegistro = (props) => {
                                 <button class="btn btn-primary" type="button" onClick={iniciarRegistro}>Registrarse</button>
                             </div>
                             <div class="d-grid gap-2 col-6 mx-auto mt-2">
-                                <button class="btn btn-link" type="button">Iniciar sesión</button>
+                                <button class="btn btn-link" type="button" onClick={() => {window.location.href = '/IniciarSesionPage'}} >Iniciar sesión</button>
                             </div>
                             
                         </form>

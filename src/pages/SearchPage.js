@@ -76,7 +76,7 @@ function SearchPage() {
                 </div>
             </div>
             <div className="SearchPage_main">
-                    <Footer 
+                    <Footer className="bottomAlways"
                     redireccionamiento={RedirigirAOtraPagina}/>
             </div>
         </div>

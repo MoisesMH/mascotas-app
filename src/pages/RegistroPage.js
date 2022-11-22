@@ -69,7 +69,7 @@ const RegistroPage = () => {
         <FormularioRegistro
             registrarse={registro}
         />
-        <Footer
+        <Footer className="bottomAlways"
         redireccionamiento={RedirigirAOtraPagina}/>
         </div>
     )

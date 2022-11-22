@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
+import "../styles/MascotasApp.css"
 
 const renderTooltip1 = (props) => (
     <Tooltip id="button-tooltip" {...props}>
@@ -14,8 +15,9 @@ const renderTooltip2 = (props) => (
 
 function Footer(props) {
     return (
-        <footer className="card mt-4 mb-2 text-bg-primary">
-            <div className="card-body">
+        <div  className="bottomAlways">
+        <footer className="card mt-4 text-bg-primary ">
+            <div className="card-body ">
                 <div className="row">
                     <div className="col-md">
                         <div className="text-center mb-1">
@@ -58,6 +60,7 @@ function Footer(props) {
                 </div>
             </div>
         </footer>
+         </div>
     )
 }
 

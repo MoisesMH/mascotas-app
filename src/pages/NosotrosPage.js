@@ -72,7 +72,7 @@ const NosotrosPage = () => {
             <Nosotros
                 volver={VolverAPaginaAnterior}
             />
-            <Footer
+            <Footer className="bottomAlways"
                 redireccionamiento={RedirigirAOtraPagina}
             />
         </div>
