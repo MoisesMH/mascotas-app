@@ -22,6 +22,7 @@ function CrearPublicacion() {
           setUsuarioActual(user)
           setUserID(user.uid)
         } else {
+            window.location.href = '/'
             setUsuarioActual(null)
             setUserID(null)
         }
@@ -70,7 +71,7 @@ function CrearPublicacion() {
             </div>
             <div className="CrearPublicacion__main">
                 <div className="CrearPublicacion__main--container">
-                    <PublicacionFormulario/>
+                    <PublicacionFormulario userID={userID}/>
                 </div>
             </div>
             <div className="CrearPublicacion_footer">

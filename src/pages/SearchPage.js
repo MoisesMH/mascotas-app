@@ -5,35 +5,58 @@ import { guardarDatoTipoUsuario, obtenerDatoTipoUsuario } from "../dao/usuario_l
 import { guardarPaginasAnteriores, EntregarPaginaAnterior } from "../dao/paginas_anteriores_local";
 import { useEffect, useState } from "react";
 import Footer from "../components/Footer.component";
-
+import NewCardList from "../components/NewCardList.component";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { db, storage } from "../config/FirebaseApp"
+import { getDownloadURL, ref } from "firebase/storage";
+import FiltrosBusqueda from "../components/Filtros.component";
 
 
 function SearchPage() {
+    const auth = getAuth()
     const [tipoDeUsuario, setTipoDeUsuario] = useState(2);
+    const [publicaciones, setPublicaciones] = useState([])
+    const user = auth.currentUser
+    const [usuarioActual, setUsuarioActual] = useState(user)
+    const [userID, setUserID] = useState(null)
 
-
-    useEffect(() => {
-
-        const AsyncUseEffect = async () => {
-            if(obtenerDatoTipoUsuario() == null) {
-                guardarDatoTipoUsuario(tipoDeUsuario)
-            }
-            else {
-                const dato = obtenerDatoTipoUsuario
-                setTipoDeUsuario(dato)
-            }
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            setUsuarioActual(user)
+            setUserID(user.uid)
+        } else {
+            window.location.href = '/'
+            setUsuarioActual(null)
+            setUserID(null)
         }
-        AsyncUseEffect()
-    }, [tipoDeUsuario]
-    )
+    });
 
-    
+    window.onload= ()=>{
+        getAllDocuments()
+    }
+
+    const getAllDocuments = async () =>{
+
+        const querySnapshot = await getDocs(collection(db,"publicaciones"))
+
+        const tempArray = []
+
+        querySnapshot.forEach(doc=>{
+            const data = doc.data()
+            tempArray.push(data)
+        })
+        
+        setPublicaciones(tempArray)
+        
+    }
+
     // DIRECCION DE LA PAGINA ACTUAL
     const direccionActual = '/SearchPage'
     //  SOLO SIRVE PARA EL PROPS ubicacion
     const ubicacionActual = 'SearchPage'
 
-    
+
 
     // Props: redireccionamiento    => Mantiene el tipo de usuario actual
     const RedirigirAOtraPagina = (direccion) => {
@@ -72,12 +95,23 @@ function SearchPage() {
             </div>
             <div className="SearchPage__main">
                 <div className="PostPage__main--container">
-                    <CardList />
+                    <div className="row">
+
+                        <div className="col-1"></div>
+                        <div className="col text-center">Aqui va la barra de búsqueda</div>
+                        <div className="col-1"></div>
+                        
+                    </div>
+                    <div className="row">
+                        <div className="col-3"><FiltrosBusqueda/></div>
+                        <div className="col"><NewCardList publicaciones={publicaciones} /></div>
+                    </div> 
+                    
                 </div>
             </div>
             <div className="SearchPage_main">
-                    <Footer className="bottomAlways"
-                    redireccionamiento={RedirigirAOtraPagina}/>
+                <Footer className="bottomAlways"
+                    redireccionamiento={RedirigirAOtraPagina} />
             </div>
         </div>
     )
