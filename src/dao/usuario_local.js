@@ -29,6 +29,14 @@ const obtenerDatoUsuario = () => {
     return localStorage.getItem('usuario')
 }
 
+const guardarUsuarioFirebase = (usuarioFirebase) => {
+    localStorage.setItem('usuarioFirebase',JSON.stringify(usuarioFirebase))
+}
+
+const obtenerUsuarioFirebase = () =>{
+    return localStorage.getItem('usuarioFirebase')
+} 
+
 const guardarDatoTipoUsuario = (tipo) => {
     localStorage.setItem('tipoUsuario',tipo)
 }
@@ -45,5 +53,7 @@ export {
     obtenerDatoUsuario,
     guardarDatoTipoUsuario,
     obtenerDatoTipoUsuario,
-    eliminarDatosIniciales
+    eliminarDatosIniciales,
+    guardarUsuarioFirebase,
+    obtenerUsuarioFirebase
 }

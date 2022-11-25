@@ -3,8 +3,24 @@
 } */
 
 .bottomAlways {
-    position: absolute;
+    position: relative;
     left: 0;
     bottom: 0;
     right: 0;
-  }
+}
+
+.expand_vertical{
+    height: 100%;
+}
+
+.backgroundNoImage{
+    width: 100%;
+    height: 100%;
+    background-color: grey;
+}
+.rectangulo {
+    width: auto; 
+    height: auto; 
+    border: 3px solid #555;
+    background: #428bca;
+}

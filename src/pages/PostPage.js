@@ -7,26 +7,24 @@ import {useState, useEffect} from 'react';
 
 import { EntregarPaginaAnterior, guardarPaginasAnteriores } from "../dao/paginas_anteriores_local"
 import { guardarDatoTipoUsuario, obtenerDatoTipoUsuario } from "../dao/usuario_local"
-
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 function PostPage() {
 
-    const [tipoDeUsuario, setTipoDeUsuario] = useState(2);
+    const auth = getAuth()
+    const user = auth.currentUser
+    const [usuarioActual, setUsuarioActual] = useState(user)
+    const [userID,setUserID] = useState(null)
 
-    useEffect(() => {
-
-        const AsyncUseEffect = async () => {
-            if(obtenerDatoTipoUsuario() == null) {
-                guardarDatoTipoUsuario(tipoDeUsuario)
-            }
-            else {
-                const dato = obtenerDatoTipoUsuario
-                setTipoDeUsuario(dato)
-            }
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+          setUsuarioActual(user)
+          setUserID(user.uid)
+        } else {
+            setUsuarioActual(null)
+            setUserID(null)
         }
-        AsyncUseEffect()
-    }, [tipoDeUsuario]
-    )
+      });
 
 
     // DIRECCION DE LA PAGINA ACTUAL
@@ -38,7 +36,7 @@ function PostPage() {
     // Props: redireccionamiento    => Mantiene el tipo de usuario actual
     const RedirigirAOtraPagina = (direccion) => {
         guardarPaginasAnteriores(direccionActual)
-        guardarDatoTipoUsuario(tipoDeUsuario)
+        guardarDatoTipoUsuario(usuarioActual)
         window.location.href = direccion
     }
 
@@ -63,7 +61,7 @@ function PostPage() {
         <div className="PostPage">
             <div className="PostPage__header">
                 <Navbar
-                tipoDeUsuario={ tipoDeUsuario} 
+                tipoDeUsuario={usuarioActual} 
                 salir={TerminarSesionActiva}
                 redireccionamiento={RedirigirAOtraPagina}
                 ubicacion={ubicacionActual}
@@ -73,7 +71,6 @@ function PostPage() {
                 <div className="PostPage__main--container">
                     <Post />
                 </div>
-                {/* <h1>Hola</h1> */}
             </div>
             <div className="PostPage_footer">
                 <Footer 
