@@ -94,7 +94,7 @@ const InicioSesionPage = () => {
         />
         <FormularioInicioSesion
         iniciarSesion={IniciarSesion}/>
-        <Footer
+        <Footer className="bottomAlways"
         redireccionamiento={RedirigirAOtraPagina}/>
         </div>
     )
