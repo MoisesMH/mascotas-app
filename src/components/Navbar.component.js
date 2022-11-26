@@ -41,7 +41,21 @@ const Navbar = (props) => {
                                    }
                                 </li>
                                 <li className="nav-item">
-                                    <button className="nav-link btn">Adopta</button>
+                                    {
+                                        (
+                                            () => {
+                                                if (props.ubicacion == 'SearchPage') {
+                                                    return (
+                                                        <button className="nav-link btn active">Adopta</button>
+                                                    )
+                                                } else {
+                                                    return (
+                                                        <button className="nav-link btn" onClick={() => props.redireccionamiento('/SearchPage')}>Adopta</button>
+                                                    )
+                                                }
+                                            })()
+                                    }
+                                    
                                 </li>
                                 <li className="nav-item">
                                     <button className="nav-link btn">Blog</button>

@@ -41,7 +41,7 @@ const FormularioRegistro = (props) => {
 
     const iniciarRegistro = () => {
         checkContrasenas()
-        props.registrarse(nombreUsuario, correoUsuario, contrasenaUsuario)
+         props.registrarse(nombreUsuario, correoUsuario, contrasenaUsuario)
     }
 
 
