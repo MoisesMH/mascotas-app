@@ -7,6 +7,7 @@ import SearchPage from './SearchPage';
 import RegistroPage from './RegistroPage';
 import InformacionPage from './InformacionPage';
 import ContactoPage from './ContactoPage';
+import CrearPublicacion from './CrearPublicacion';
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
         <Route path='/adopta/4' element={<PostPage />} />
         <Route path='/InformacionPage' element={<InformacionPage />} />
         <Route path='/ContactoPage' element={<ContactoPage /> } />
+        <Route path='/CrearPublicacion' element={<CrearPublicacion />} />
       </Routes>
     </div>
   );

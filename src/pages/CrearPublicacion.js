@@ -1,38 +1,38 @@
-import React, { useEffect } from "react";
-import MascotaList from "../components/MascotaList.component";
-//import Navbar from "./layout/Navbar/Navbar";
+import React from "react";
+import Footer from "../components/Footer.component";
 import Navbar from "../components/Navbar.component";
-import "../styles/MascotasApp.css";
-//import NavbarSide from "./layout/Navbar/NavbarSide";
-import useToggleState from "../hooks/useToggleState";
-import Footer from '../components/Footer.component';
-import Banner from "../components/Banner.component";
-import {useState} from 'react';
+import Post from "../components/Post.component";
+import "../styles/PostPage.css"
+import {useState, useEffect} from 'react';
 
 import { EntregarPaginaAnterior, guardarPaginasAnteriores } from "../dao/paginas_anteriores_local"
 import { guardarDatoTipoUsuario, obtenerDatoTipoUsuario } from "../dao/usuario_local"
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import PublicacionFormulario from "../components/PublicacionFormulario.component";
 
+function CrearPublicacion() {
 
-// Esta es la página principal
-function MascotasApp() {
-    const [navside, toggleNavside] = useToggleState()
     const auth = getAuth()
     const user = auth.currentUser
     const [usuarioActual, setUsuarioActual] = useState(user)
+    const [userID,setUserID] = useState(null)
 
     onAuthStateChanged(auth, (user) => {
         if (user) {
           setUsuarioActual(user)
+          setUserID(user.uid)
         } else {
+            window.location.href = '/'
             setUsuarioActual(null)
+            setUserID(null)
         }
       });
 
+
     // DIRECCION DE LA PAGINA ACTUAL
-    const direccionActual = '/HomePage'
+    const direccionActual = '/CrearPublicacion'
     //  SOLO SIRVE PARA EL PROPS ubicacion
-    const ubicacionActual = 'HomePage'
+    const ubicacionActual = 'CrearPublicacion'
 
 
     // Props: redireccionamiento    => Mantiene el tipo de usuario actual
@@ -44,17 +44,9 @@ function MascotasApp() {
 
     // Props: salir                 => Elimina los datos del usuario actual
     const TerminarSesionActiva = () => {
-        auth.signOut().then(()=>{
-
-            console.log("Cerro sesión")
-            window.location.href = '/'
-
-        }).catch((error)=>{
-
-            console.log(error)
-
-        })
-        
+        guardarPaginasAnteriores(direccionActual)
+        guardarDatoTipoUsuario(2)
+        window.location.href = '/'
     }
 
     // NORMALMENTE SERVIRA COMO UN PROPS PARA LOS BOTONES DE "REGRESAR"
@@ -66,28 +58,29 @@ function MascotasApp() {
         }
     }
 
+
     return (
-        <div className="MascotasApp-main">
-            <div className="MascotasApp-header">
-                <Navbar 
+        <div className="CrearPublicacion">
+            <div className="CrearPublicacion__header">
+                <Navbar
                 tipoDeUsuario={usuarioActual} 
                 salir={TerminarSesionActiva}
                 redireccionamiento={RedirigirAOtraPagina}
                 ubicacion={ubicacionActual}
                 />
             </div>
-            <div className="MascotasApp-banner">
-                <Banner />
+            <div className="CrearPublicacion__main">
+                <div className="CrearPublicacion__main--container">
+                    <PublicacionFormulario userID={userID}/>
+                </div>
             </div>
-            <div>
-
-            </div>
-            <div>
+            <div className="CrearPublicacion_footer">
                 <Footer 
-                redireccionamiento={ RedirigirAOtraPagina }/>
+                redireccionamiento={RedirigirAOtraPagina}
+                />
             </div>
         </div>
     )
 }
 
-export default MascotasApp
+export default CrearPublicacion;
