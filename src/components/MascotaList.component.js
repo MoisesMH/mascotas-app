@@ -1,5 +1,5 @@
 import React from "react"
-import Mascota from "./Mascota"
+import Mascota from "./Mascota.component"
 
 function MascotaList() {
     return (

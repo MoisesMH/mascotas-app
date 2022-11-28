@@ -1,0 +1,30 @@
+import React from 'react'
+import './Navbar.css'
+
+function Navbar() {
+    return (
+        <nav className='Navbar-main'>
+            <div className='Navbar-left'>
+                <a href='#'>Mascotas</a>
+            </div>
+            <div className='Navbar-options'>
+                <ul className='Navbar-list main-navigate'>
+                    <li className='Navbar-list-item'><a href='#'><span>Nosotros</span></a></li>
+                    <li className='Navbar-list-item'><a href='#'><span>Adopta</span></a></li>
+                    <li className='Navbar-list-item'><a href='#'><span>Blog</span></a></li>
+                    <li className='Navbar-list-item'><a href='#'><span>Contactenos</span></a></li>
+                    <li className='Navbar-list-item'><a href='#'><span>Donar</span></a></li>
+                </ul>
+            </div>
+            <div className='Navbar-right'>
+                <ul className='Navbar-list'>
+                    <li><a href='#'>Favoritos</a></li>
+                    <li><a href='#'>Entrar</a></li>
+                </ul>
+                
+            </div>
+        </nav>
+    )
+}
+
+export default Navbar

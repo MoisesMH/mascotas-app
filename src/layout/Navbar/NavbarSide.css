@@ -1,0 +1,28 @@
+.NavbarSide-nav {
+    overflow-x: hidden;
+}
+
+.main-navigate {
+    position: fixed;
+    inset: 0 30% 0 0;
+    background-color: black;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* padding-block: 2rem; */
+    /* display: none; */
+    height: 100vh;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-out;
+}
+
+.main-navigate[data-visible="true"] {
+    transform: translateX(0%);
+}
+
+@media (min-width: 784px) {
+    .main-navigate {
+        display: none;
+        visibility: hidden;
+    }
+}

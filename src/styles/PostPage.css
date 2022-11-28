@@ -1,0 +1,14 @@
+.PostPage__main {
+    display: flex;
+    justify-content: center;
+}
+
+.PostPage__main--container {
+    margin: 1rem;
+}
+
+@media (min-width: 784px) {
+    .PostPage__main--container {
+        max-width: calc(784px + 12vw);
+    }
+}

@@ -1,0 +1,13 @@
+/* .CardList {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 80%;
+} */
+
+@media (min-width: 784px) {
+    .CardList--wrapper {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        grid-gap: 2rem;
+    }
+}
