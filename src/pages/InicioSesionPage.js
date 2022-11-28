@@ -4,10 +4,10 @@ import FormularioInicioSesion from "../components/FormularioInicioSesion.compone
 import Navbar from "../components/Navbar.component"
 import {useState, useEffect} from 'react'
 import { guardarPaginasAnteriores, EntregarPaginaAnterior } from "../dao/paginas_anteriores_local"
-import { guardarDatoTipoUsuario } from "../dao/usuario_local"
+import { guardarDatoTipoUsuario, guardarUsuarioFirebase } from "../dao/usuario_local"
 import { obtenerDatoTipoUsuario } from "../dao/usuario_local";
 import { firebaseApp } from "../config/FirebaseApp";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 
 
 
@@ -16,42 +16,27 @@ const InicioSesionPage = () => {
     
 
     const auth = getAuth(firebaseApp)
+    const user = auth.currentUser
+    const [usuarioActual, setUsuarioActual] = useState(user);
 
-    const [tipoDeUsuario, setTipoDeUsuario] = useState(2);
-
-    
-
-    useEffect(() => {
-
-        const AsyncUseEffect = async () => {
-            if(obtenerDatoTipoUsuario() == null) {
-                guardarDatoTipoUsuario(tipoDeUsuario)
-            }
-            else {
-                const dato = obtenerDatoTipoUsuario
-                setTipoDeUsuario(dato)
-            }
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+          setUsuarioActual(user)
+        } else {
+            setUsuarioActual(null)
         }
-        AsyncUseEffect()
-    }, [tipoDeUsuario]
-    )
+      });
 
 
  
     async function IniciarSesion(email, password) {
-        try {
-            const InfoUsuario = await signInWithEmailAndPassword(auth, email, password).then((usuarioFirebase) => {
-            return usuarioFirebase
+        await signInWithEmailAndPassword(auth,email,password).then((response)=>{
+            console.log("Usuario Logeado")
+            guardarUsuarioFirebase(response.user)
+            window.location.href = '/'
+        }).catch((error)=>{
+            console.log(error)
         })
-
-        guardarDatoTipoUsuario(1)
-        window.location.href="/"
-
-        
-    } catch(error) {
-            console.log("Error en el login")
-        }
-
     }
     
     // DIRECCION DE LA PAGINA ACTUAL
@@ -63,7 +48,7 @@ const InicioSesionPage = () => {
     // Props: redireccionamiento    => Mantiene el tipo de usuario actual
     const RedirigirAOtraPagina = (direccion) => {
         guardarPaginasAnteriores(direccionActual)
-        guardarDatoTipoUsuario(tipoDeUsuario)
+        guardarDatoTipoUsuario(usuarioActual)
         window.location.href = direccion
     }
 
@@ -87,7 +72,7 @@ const InicioSesionPage = () => {
     return (
         <div>
         <Navbar 
-        tipoDeUsuario={tipoDeUsuario}
+        tipoDeUsuario={usuarioActual}
         redireccionamiento={RedirigirAOtraPagina}
         salir={TerminarSesionActiva}
         ubicacion={ubicacionActual}

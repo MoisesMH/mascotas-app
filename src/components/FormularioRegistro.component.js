@@ -1,5 +1,8 @@
 import { useState } from "react"
 import { Image } from "react-bootstrap"
+import { firebaseApp } from "../config/FirebaseApp";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { guardarUsuarioFirebase } from "../dao/usuario_local";
 
 const FormularioRegistro = (props) => {
 
@@ -9,39 +12,62 @@ const FormularioRegistro = (props) => {
     const [confirmacionContrasena, setConfirmacionContra] = useState("")
     const [showAlert, setShowAlert] = useState(false)
     const [textoAlert, setTextoAlert] = useState("")
-
+    const auth = getAuth(firebaseApp)
 
     const checkContrasenas = () =>{
         if (correoUsuario == ""){
             setTextoAlert("Introduzca un correo")
             setShowAlert(true)
-            return
+            return false
         }
 
         if (nombreUsuario == ""){
             setTextoAlert("Introduzca un nombre de usuario")
             setShowAlert(true)
-            return
+            return false
         }
 
         if (contrasenaUsuario == ""){
             setTextoAlert("Introduzca una contraseña")
             setShowAlert(true)
-            return
+            return false
         }
 
         if (contrasenaUsuario != confirmacionContrasena) {
             setTextoAlert("Las contraseñas no coinciden")
             setShowAlert(true)
-            return
+            return false
         }
         setShowAlert(false)
+        return true
+    }
+
+    async function registroFirebase(nombreUsuario, email, password) {
+
+        setShowAlert(false)
+
+        await createUserWithEmailAndPassword(auth, email, password).then((response) => {
+
+            console.log("Usuario registrado")
+            guardarUsuarioFirebase(response.user)
+            window.location.href ='/'
+
+        }).catch((error) => {
+            const errorMessage = error.message
+            console.log(error)
+            console.log(errorMessage)
+            setTextoAlert(errorMessage)
+            setShowAlert(true)
+        })
     }
 
 
     const iniciarRegistro = () => {
-        checkContrasenas()
-        props.registrarse(nombreUsuario, correoUsuario, contrasenaUsuario)
+        if (checkContrasenas()) {
+
+            registroFirebase(nombreUsuario, correoUsuario, contrasenaUsuario)
+
+        }
     }
 
 
@@ -53,7 +79,7 @@ const FormularioRegistro = (props) => {
                 <div className="card mt-5">
                     <div className="card-body">
                         <h3 className="text-center mt-4">Crear una cuenta</h3>
-                        <div class="d-grid gap-2 col-1 mx-auto mt-4">
+                        <div className="d-grid gap-2 col-1 mx-auto mt-4">
                             <Image
                                 alt="..."
                                 className="me-2"
@@ -64,26 +90,26 @@ const FormularioRegistro = (props) => {
                         </div>
                         <form>
                             <div className="mb-5 mt-4">
-                                <label for="exampleInputEmail1" class="form-label">Correo Electrónico</label>
+                                <label htmlFor="exampleInputEmail1" className="form-label">Correo Electrónico</label>
                                 <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                                     onChange={(e) => setCorreoUsuario(e.target.value)}
                                 />
                                 <p id="emailHelp" className="form-text">Nunca compartiremos su correo electrónico con nadie más.</p>
                             </div>
                             <div>
-                                <label for="inputUsernameRegister" className="form-label">Nombre de usuario</label>
+                                <label htmlFor="inputUsernameRegister" className="form-label">Nombre de usuario</label>
                                 <input type="text" className="form-control" id="inputUsernameRegister"
                                     onChange={(e) => setNombreUsuario(e.target.value)}
                                 />
                             </div>
                             <div class="mb-3 mt-4">
-                                <label for="exampleInputPassword1" className="form-label">Contraseña</label>
+                                <label htmlFor="exampleInputPassword1" className="form-label">Contraseña</label>
                                 <input type="password" className="form-control" id="exampleInputPassword1"
                                     onChange={(e) => setContrasenaUsuario(e.target.value)}
                                 />
                             </div>
                             <div class="mb-3 mt-4">
-                                <label for="exampleInputPassword2" className="form-label">Confirmar contraseña</label>
+                                <label htmlFor="exampleInputPassword2" className="form-label">Confirmar contraseña</label>
                                 <input type="password" className="form-control" id="exampleInputPassword2"
                                     onChange={(e) => setConfirmacionContra(e.target.value)}
                                 />
@@ -94,7 +120,7 @@ const FormularioRegistro = (props) => {
                                         () => {
                                             if (showAlert) {
                                                 return (
-                                                    <div class="alert alert-danger" role="alert">
+                                                    <div className="alert alert-danger" role="alert">
                                                         <p>{textoAlert}</p>
                                                     </div>
                                                 )
@@ -102,11 +128,11 @@ const FormularioRegistro = (props) => {
                                         })()
                                 }
                             </div>
-                            <div class="d-grid gap-2 col-6 mx-auto mt-5">
-                                <button class="btn btn-primary" type="button" onClick={iniciarRegistro}>Registrarse</button>
+                            <div className="d-grid gap-2 col-6 mx-auto mt-5">
+                                <button className="btn btn-primary" type="button" onClick={iniciarRegistro}>Registrarse</button>
                             </div>
-                            <div class="d-grid gap-2 col-6 mx-auto mt-2">
-                                <button class="btn btn-link" type="button" onClick={() => {window.location.href = '/IniciarSesionPage'}} >Iniciar sesión</button>
+                            <div className="d-grid gap-2 col-6 mx-auto mt-2">
+                                <button className="btn btn-link" type="button" onClick={() => {window.location.href = '/IniciarSesionPage'}} >Iniciar sesión</button>
                             </div>
                             
                         </form>
