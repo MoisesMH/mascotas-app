@@ -6,9 +6,10 @@ const Banner = () => {
         <div>
             <Image
             alt="..."
-            className="img-fluid    "
+            className=""
             src="https://media.perezlara.com/2021/02/Adopcio%CC%81n-de-mascotas-1.png"
-            responsive/>
+            fluid={true}
+            width={1600}/>
         </div>
     )
 }

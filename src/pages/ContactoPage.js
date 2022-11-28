@@ -3,9 +3,10 @@ import Footer from "../components/Footer.component";
 import Navbar from "../components/Navbar.component";
 import { guardarPaginasAnteriores, EntregarPaginaAnterior } from "../dao/paginas_anteriores_local"
 import { guardarDatoTipoUsuario, obtenerDatoTipoUsuario } from "../dao/usuario_local";
-import CuerpoInformacion from "../components/CuerpoInformacion.component";
+import FichaContacto from "../components/FichaContacto.component";
 
-const InformacionPage = () => {
+const ContactoPage = () => {
+   
     const [tipoDeUsuario, setTipoDeUsuario] = useState(2);
 
     useEffect(() => {
@@ -25,9 +26,9 @@ const InformacionPage = () => {
 
 
     // DIRECCION DE LA PAGINA ACTUAL
-    const direccionActual = '/InformacionPage'
+    const direccionActual = '/ContactoPage'
     //  SOLO SIRVE PARA EL PROPS ubicacion
-    const ubicacionActual = 'InformacionPage'
+    const ubicacionActual = 'ContactoPage'
 
 
     // Props: redireccionamiento    => Mantiene el tipo de usuario actual
@@ -52,7 +53,7 @@ const InformacionPage = () => {
             window.location.href = respuesta
         }
     }
-
+    
     return (
         <div>
         <Navbar 
@@ -60,13 +61,14 @@ const InformacionPage = () => {
         salir={TerminarSesionActiva}
         redireccionamiento={RedirigirAOtraPagina}
         ubicacion={ubicacionActual}/>
-        <CuerpoInformacion 
+        <FichaContacto 
         redireccionamiento={RedirigirAOtraPagina}
-        volver= { VolverAPaginaAnterior }/>
+        tipoDeUsuario={tipoDeUsuario}
+        volver={VolverAPaginaAnterior}/>
         <Footer 
         redireccionamiento={RedirigirAOtraPagina}/>
         </div>
     )
 }
 
-export default InformacionPage
+export default ContactoPage
