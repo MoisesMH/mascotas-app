@@ -1,8 +1,9 @@
 import { useState } from "react"
 import { Image } from "react-bootstrap"
-import { firebaseApp } from "../config/FirebaseApp";
+import { db, firebaseApp } from "../config/FirebaseApp";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { guardarUsuarioFirebase } from "../dao/usuario_local";
+import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 
 const FormularioRegistro = (props) => {
 
@@ -12,6 +13,8 @@ const FormularioRegistro = (props) => {
     const [confirmacionContrasena, setConfirmacionContra] = useState("")
     const [showAlert, setShowAlert] = useState(false)
     const [textoAlert, setTextoAlert] = useState("")
+    const [numberUser,setNumberUser] = useState(null)
+    const [accountsUser,setAccountsUser] = useState("")
     const auth = getAuth(firebaseApp)
 
     const checkContrasenas = () =>{
@@ -23,6 +26,12 @@ const FormularioRegistro = (props) => {
 
         if (nombreUsuario == ""){
             setTextoAlert("Introduzca un nombre de usuario")
+            setShowAlert(true)
+            return false
+        }
+
+        if(numberUser == null || numberUser.toString().length != 9){
+            setTextoAlert("Introduzca un numero de telefono valido")
             setShowAlert(true)
             return false
         }
@@ -50,7 +59,7 @@ const FormularioRegistro = (props) => {
 
             console.log("Usuario registrado")
             guardarUsuarioFirebase(response.user)
-            window.location.href ='/'
+            registrarFirestore(response.user.uid)
 
         }).catch((error) => {
             const errorMessage = error.message
@@ -59,6 +68,23 @@ const FormularioRegistro = (props) => {
             setTextoAlert(errorMessage)
             setShowAlert(true)
         })
+    }
+
+    async function registrarFirestore(userID){
+
+        const data ={
+            "correoUsuario": correoUsuario,
+            "nombreUsuario": nombreUsuario,
+            "numeroUsuario": numberUser,
+            "cuentasUsuario": accountsUser
+        }
+
+        await setDoc(doc(db,"usuarios",userID),data).then(()=>{
+            window.location.href ='/'
+        }).catch((error) => {
+            console.log(error)
+        })
+
     }
 
 
@@ -103,6 +129,18 @@ const FormularioRegistro = (props) => {
                                 />
                             </div>
                             <div class="mb-3 mt-4">
+                                <label htmlFor="numberPhone" className="form-label">Numero de teléfono</label>
+                                <input type="number" className="form-control" id="numberPhone"
+                                    onChange={(e) => setNumberUser(e.target.value)}
+                                />
+                            </div>
+                            <div class="mb-3 mt-4">
+                                <label htmlFor="textAccount" className="form-label">Cuenta Instagram/Facebook</label>
+                                <input type="text" className="form-control" id="textAccount"
+                                    onChange={(e) => setAccountsUser(e.target.value)}
+                                />
+                            </div>
+                            <div class="mb-3 mt-4">
                                 <label htmlFor="exampleInputPassword1" className="form-label">Contraseña</label>
                                 <input type="password" className="form-control" id="exampleInputPassword1"
                                     onChange={(e) => setContrasenaUsuario(e.target.value)}
@@ -114,6 +152,7 @@ const FormularioRegistro = (props) => {
                                     onChange={(e) => setConfirmacionContra(e.target.value)}
                                 />
                             </div>
+                            
                             <div>
                                 {
                                     (

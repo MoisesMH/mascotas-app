@@ -1,11 +1,12 @@
 import { Image } from "react-bootstrap"
 import "../styles/CuerpoInformacion.css"
 import { useEffect, useState } from "react"
+import { doc, getDoc } from "firebase/firestore"
+import { db } from "../config/FirebaseApp"
 
 const CuerpoInformacion = (props) => {
 
-    let publicacion = localStorage.getItem("publicacion")
-    let publicacionJSON = JSON.parse(publicacion)
+    let publicacionJSON = props.publicacion
 
     const [nombre, setNombre] = useState(publicacionJSON.NombreAnimal)
     const [edad, setEdad] = useState(publicacionJSON.EdadAnimal)
@@ -34,9 +35,6 @@ const CuerpoInformacion = (props) => {
         setUrl(event.target.value)
     }
 
-
-
-    
     return (
         <div>
         <div className="row">
@@ -85,7 +83,7 @@ const CuerpoInformacion = (props) => {
         <div className="row">
             <div className="col"/>
             <div className="col-6 text-center">
-                <button type="button" className="text-center btn btn-success btn-lg" onClick={() => {props.redireccionamiento("/ContactoPage")}}>CONTACTO</button>
+                <button type="button" className="text-center btn btn-success btn-lg" onClick={() => {props.redireccionamiento(`/ContactoPage?userId=${props.publicacion.Usuario}`)}}>CONTACTO</button>
             </div>
             <div className="col"/>
         </div>

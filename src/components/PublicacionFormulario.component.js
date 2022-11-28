@@ -75,7 +75,10 @@ const PublicacionFormulario = (props) => {
 
         await updateDoc(docReference, {
             Imagen: imgPath
-        }).catch((error) => {
+        }).then(()=>{
+            window.location.href = '/SearchPage'
+        })
+        .catch((error) => {
             setProcesoCarga(false)
             console.log(error)
         })

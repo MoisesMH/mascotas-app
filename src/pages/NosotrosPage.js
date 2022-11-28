@@ -56,10 +56,16 @@ const NosotrosPage = () => {
 
     // Props: salir                 => Elimina los datos del usuario actual
     const TerminarSesionActiva = () => {
-        guardarPaginasAnteriores(direccionActual)
-        //guardarDatosGenerales(-1, 4)
-        window.location.href = '/'
-        setTipoDeUsuario(2)
+        auth.signOut().then(()=>{
+
+            console.log("Cerro sesión")
+            window.location.href = '/'
+
+        }).catch((error)=>{
+
+            console.log(error)
+
+        })
     }
 
     // NORMALMENTE SERVIRA COMO UN PROPS PARA LOS BOTONES DE "REGRESAR"

@@ -22,21 +22,6 @@ const ContactoPage = () => {
         }
       });
 
-    useEffect(() => {
-
-        const AsyncUseEffect = async () => {
-            if(obtenerDatoTipoUsuario() == null) {
-                guardarDatoTipoUsuario(tipoDeUsuario)
-            }
-            else {
-                const dato = obtenerDatoTipoUsuario
-                setTipoDeUsuario(dato)
-            }
-        }
-        AsyncUseEffect()
-    }, [tipoDeUsuario]
-    )
-
 
     // DIRECCION DE LA PAGINA ACTUAL
     const direccionActual = '/ContactoPage'
@@ -53,9 +38,17 @@ const ContactoPage = () => {
 
     // Props: salir                 => Elimina los datos del usuario actual
     const TerminarSesionActiva = () => {
-        guardarPaginasAnteriores(direccionActual)
-        guardarDatoTipoUsuario(2)
-        window.location.href = '/'
+        auth.signOut().then(()=>{
+
+            console.log("Cerro sesión")
+            window.location.href = '/'
+
+        }).catch((error)=>{
+
+            console.log(error)
+
+        })
+        
     }
 
     // NORMALMENTE SERVIRA COMO UN PROPS PARA LOS BOTONES DE "REGRESAR"

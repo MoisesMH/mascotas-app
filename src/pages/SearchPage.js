@@ -92,18 +92,20 @@ function SearchPage() {
                         arrayFilters[3][Object.keys(arrayFilters[3])[0]]))
                 break;
             default:
+                getAllDocuments()
                 return;
         }
         const querySnapshot = await getDocs(q)
 
-            const tempArray = []
+        const tempArray = []
 
-            querySnapshot.forEach(doc => {
-                const data = doc.data()
-                tempArray.push(data)
-            })
+        querySnapshot.forEach(doc => {
+            const data = doc.data()
+            data["documentId"] = doc.id
+            tempArray.push(data)
+        })
 
-            setPublicaciones(tempArray)
+        setPublicaciones(tempArray)
 
     }
 
@@ -123,10 +125,16 @@ function SearchPage() {
 
     // Props: salir                 => Elimina los datos del usuario actual
     const TerminarSesionActiva = () => {
-        guardarPaginasAnteriores(direccionActual)
-        //guardarDatosGenerales(-1, 4)
-        window.location.href = '/'
-        setTipoDeUsuario(2)
+        auth.signOut().then(()=>{
+
+            console.log("Cerro sesión")
+            window.location.href = '/'
+
+        }).catch((error)=>{
+
+            console.log(error)
+
+        })
     }
 
     // NORMALMENTE SERVIRA COMO UN PROPS PARA LOS BOTONES DE "REGRESAR"
@@ -155,7 +163,7 @@ function SearchPage() {
                         <div className="col-3"><FiltrosBusqueda
                             filterBusqueda={getFilteredDocuments}
                         /></div>
-                        <div className="col"><NewCardList publicaciones={publicaciones} redireccionamiento={RedirigirAOtraPagina}/></div>
+                        <div className="col"><NewCardList publicaciones={publicaciones} redireccionamiento={RedirigirAOtraPagina} /></div>
                     </div>
 
                 </div>

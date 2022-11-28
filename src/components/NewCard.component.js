@@ -9,7 +9,7 @@ const NewCard = (props) =>{
 
     const handleClick = () => {
         localStorage.setItem("publicacion", JSON.stringify(props.publicacion))
-        window.location.href="/InformacionPage"
+        window.location.href=`/InformacionPage?pub=${props.publicacion.documentId}`
     }
 
     return (
