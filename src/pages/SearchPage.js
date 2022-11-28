@@ -44,6 +44,7 @@ function SearchPage() {
 
         querySnapshot.forEach(doc => {
             const data = doc.data()
+            data["documentId"] = doc.id
             tempArray.push(data)
         })
 

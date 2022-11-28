@@ -3,7 +3,9 @@ import "../styles/Card.css";
 const NewCard = (props) =>{
 
     const handleClick = () => {
+        //Jean aca esta xd
         console.log("Entrar a publicacion")
+        console.log(props.publicacion.documentId)
     }
 
     return (
