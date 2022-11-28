@@ -4,9 +4,22 @@ import Navbar from "../components/Navbar.component";
 import { guardarPaginasAnteriores, EntregarPaginaAnterior } from "../dao/paginas_anteriores_local"
 import { guardarDatoTipoUsuario, obtenerDatoTipoUsuario } from "../dao/usuario_local";
 import CuerpoInformacion from "../components/CuerpoInformacion.component";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
-const InformacionPage = () => {
+const InformacionPage = (documentId) => {
     const [tipoDeUsuario, setTipoDeUsuario] = useState(2);
+
+    const auth = getAuth()
+    const user = auth.currentUser
+    const [usuarioActual, setUsuarioActual] = useState(user);
+    
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+          setUsuarioActual(user)
+        } else {
+            setUsuarioActual(null)
+        }
+      });
 
     useEffect(() => {
 
@@ -56,7 +69,7 @@ const InformacionPage = () => {
     return (
         <div>
         <Navbar 
-        tipoDeUsuario={ tipoDeUsuario} 
+        tipoDeUsuario={ usuarioActual} 
         salir={TerminarSesionActiva}
         redireccionamiento={RedirigirAOtraPagina}
         ubicacion={ubicacionActual}/>

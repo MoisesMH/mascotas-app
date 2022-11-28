@@ -1,16 +1,20 @@
 import { Image } from "react-bootstrap"
 import "../styles/CuerpoInformacion.css"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 const CuerpoInformacion = (props) => {
 
-    const [nombre, setNombre] = useState("Nombre de Mascota")
-    const [edad, setEdad] = useState("5 meses")
-    const [tamaño, setTamaño] = useState("Pequeño")
-    const [sexo, setSexo] = useState("Masculino")
-    const [actividad, setActividad] = useState("Actividad Alta")
-    const [url, setUrl] = useState("https://www.purina-latam.com/sites/g/files/auxxlc391/files/styles/large/public/5_0.png?itok=bXHjR7HB")
-    
+    let publicacion = localStorage.getItem("publicacion")
+    let publicacionJSON = JSON.parse(publicacion)
+
+    const [nombre, setNombre] = useState(publicacionJSON.NombreAnimal)
+    const [edad, setEdad] = useState(publicacionJSON.EdadAnimal)
+    const [tamaño, setTamaño] = useState(publicacionJSON.TamanoAnimal)
+    const [sexo, setSexo] = useState(publicacionJSON.GeneroAnimal)
+    const [actividad, setActividad] = useState("Actividad" + " " + publicacionJSON.Estado)
+    const [url, setUrl] = useState(publicacionJSON.Imagen)
+    const [descripcion, setDescripcion] = useState(publicacionJSON.DescripcionAnimal)
+
     const setNombreOnChange = (event) => {
         setNombre(event.target.value)
     }
@@ -30,6 +34,8 @@ const CuerpoInformacion = (props) => {
         setUrl(event.target.value)
     }
 
+
+
     
     return (
         <div>
@@ -38,9 +44,11 @@ const CuerpoInformacion = (props) => {
                 <div className="mt-5 text-center">
                 <Image 
                  src={ url }
+                 fluid={true}
+                 width={500}
                 />
                 <fieldset disabled>
-                    <input className="text-center fs-2 fw-semibold mt-2" defaultValue={nombre} onChange={ setNombreOnChange }/>
+                    <input className="text-center fs-2 fw-semibold mt-2" defaultValue={nombre}/>
                 </fieldset>
                 </div>
             </div>
@@ -52,20 +60,20 @@ const CuerpoInformacion = (props) => {
                         <div className="mt-3 text-center">
                             <h1 className="mt-4 text-success">Sobre mí</h1>
                         </div>
-                        <p className="mt-4 text-center fs-4 mb-4">Soy un cachorro muy juguetón y cariñoso. Deseo encontrar una familia que me haga jugar.</p>
+                        <p className="mt-4 text-center fs-4 mb-4">{ descripcion }</p>
                         <h4 className="text-primary">Información Importante:</h4>
                         <fieldset disabled>
                             <div className="mt-3 text-center fs-4 text-main">
-                                <input className="text-center" defaultValue={edad} onChange={ setEdadOnChange }/>
+                                <input className="text-center" defaultValue={edad}/>
                             </div>
                             <div className="mt-3 text-center fs-4">
-                                <input className="text-center" defaultValue={tamaño} onChange={ setTamañoOnChange }/>
+                                <input className="text-center" defaultValue={tamaño}/>
                             </div>
                             <div className="mt-3 text-center fs-4">
-                                <input className="text-center" defaultValue={sexo} onChange={ setSexoOnChange }/>
+                                <input className="text-center" defaultValue={sexo}/>
                             </div>
                             <div className="mt-3 text-center fs-4">
-                                <input className="text-center" defaultValue={actividad} onChange={ setActividadOnChange }/>
+                                <input className="text-center" defaultValue={actividad}/>
                             </div>
                         </fieldset>
                     </div>

@@ -143,7 +143,7 @@ function SearchPage() {
         <div className="SearchPage">
             <div className="SearchPage__header">
                 <Navbar
-                    tipoDeUsuario={tipoDeUsuario}
+                    tipoDeUsuario={usuarioActual}
                     redireccionamiento={RedirigirAOtraPagina}
                     salir={TerminarSesionActiva}
                     ubicacion={ubicacionActual}
@@ -155,7 +155,7 @@ function SearchPage() {
                         <div className="col-3"><FiltrosBusqueda
                             filterBusqueda={getFilteredDocuments}
                         /></div>
-                        <div className="col"><NewCardList publicaciones={publicaciones} /></div>
+                        <div className="col"><NewCardList publicaciones={publicaciones} redireccionamiento={RedirigirAOtraPagina}/></div>
                     </div>
 
                 </div>

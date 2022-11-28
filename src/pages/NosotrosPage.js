@@ -4,12 +4,24 @@ import Nosotros from "../components/Nosotros.component"
 import { useState, useEffect } from 'react'
 import { guardarPaginasAnteriores, EntregarPaginaAnterior } from "../dao/paginas_anteriores_local"
 import { guardarDatoTipoUsuario, obtenerDatoTipoUsuario } from "../dao/usuario_local"
-
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 
 const NosotrosPage = () => {
 
     const [tipoDeUsuario, setTipoDeUsuario] = useState(2);
+
+    const auth = getAuth()
+    const user = auth.currentUser
+    const [usuarioActual, setUsuarioActual] = useState(user);
+    
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+          setUsuarioActual(user)
+        } else {
+            setUsuarioActual(null)
+        }
+      });
 
 
     useEffect(() => {
@@ -64,7 +76,7 @@ const NosotrosPage = () => {
     return (
         <div>
             <Navbar
-                tipoDeUsuario={tipoDeUsuario}
+                tipoDeUsuario={usuarioActual}
                 redireccionamiento={RedirigirAOtraPagina}
                 salir={TerminarSesionActiva}
                 ubicacion={ubicacionActual}

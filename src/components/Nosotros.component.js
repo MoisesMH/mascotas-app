@@ -42,7 +42,6 @@ const Nosotros = (props) => {
                 <Card.Body align="justify">
                     <Card.Title className="text-center">Jean Pierre Soto Tipacti</Card.Title>
                     <Card.Text>
-                    Estudiante del octavo ciclo de la carrera de Ingeniería de Sistemas de la Universidad de Lima (décimo superior). Enfocado en el manejo de data y al desarrollo de videojuegos. Persona altamente responsable y persistente que aprende de manera rápida.
                     </Card.Text>
                 </Card.Body>
             </Card>

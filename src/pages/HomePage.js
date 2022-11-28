@@ -70,7 +70,7 @@ function MascotasApp() {
         <div className="MascotasApp-main">
             <div className="MascotasApp-header">
                 <Navbar 
-                tipoDeUsuario={usuarioActual} 
+                tipoDeUsuario={usuarioActual}             
                 salir={TerminarSesionActiva}
                 redireccionamiento={RedirigirAOtraPagina}
                 ubicacion={ubicacionActual}

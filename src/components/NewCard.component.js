@@ -1,11 +1,15 @@
+import React from "react";
+import { useState } from "react";
+import { json } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../styles/Card.css";
 
 const NewCard = (props) =>{
 
+
     const handleClick = () => {
-        //Jean aca esta xd
-        console.log("Entrar a publicacion")
-        console.log(props.publicacion.documentId)
+        localStorage.setItem("publicacion", JSON.stringify(props.publicacion))
+        window.location.href="/InformacionPage"
     }
 
     return (
