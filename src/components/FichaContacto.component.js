@@ -1,11 +1,11 @@
 import { Image } from "react-bootstrap"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 const FichaContacto = (props) => {
 
-    const [correo, setCorreo] = useState('albergueJesus@gmail.com')
-    const [telefono, setTelefono] = useState('8543545')
-    const [red_social, setRedSocial] = useState('@Luisito123')
+    const [correo, setCorreo] = useState('')
+    const [telefono, setTelefono] = useState('')
+    const [red_social, setRedSocial] = useState('')
 
     const setCorreoOnChange = (event) => {
         setCorreo(event.target.value)
@@ -16,7 +16,15 @@ const FichaContacto = (props) => {
     const setRedSocialOnChange = (event) => {
         setRedSocial(event.target.value)
     }
+    useEffect(()=>{
+        if (props.usuarioContact == null){
+            return
+        }
 
+        setCorreo(props.usuarioContact.correoUsuario)
+        setTelefono(props.usuarioContact.numeroUsuario)
+        setRedSocial(props.usuarioContact.cuentasUsuario)
+    })
 
     if(props.TipoDeUsuario == 2) {
         return (<div className="text-center">
