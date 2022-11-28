@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import Footer from "../components/Footer.component";
 import NewCardList from "../components/NewCardList.component";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { collection, where, getDocs, query } from "firebase/firestore";
 import { db, storage } from "../config/FirebaseApp"
 import { getDownloadURL, ref } from "firebase/storage";
 import FiltrosBusqueda from "../components/Filtros.component";
@@ -32,23 +32,78 @@ function SearchPage() {
         }
     });
 
-    window.onload= ()=>{
+    window.onload = () => {
         getAllDocuments()
     }
 
-    const getAllDocuments = async () =>{
+    const getAllDocuments = async () => {
 
-        const querySnapshot = await getDocs(collection(db,"publicaciones"))
+        const querySnapshot = await getDocs(collection(db, "publicaciones"))
 
         const tempArray = []
 
-        querySnapshot.forEach(doc=>{
+        querySnapshot.forEach(doc => {
             const data = doc.data()
             tempArray.push(data)
         })
-        
+
         setPublicaciones(tempArray)
-        
+
+    }
+
+    const getFilteredDocuments = async (arrayFilters) => {
+
+        const publicacionesRef = collection(db, "publicaciones")
+
+        var q;
+
+        switch (arrayFilters.length) {
+            case 1:
+                q = query(publicacionesRef,
+                    where(Object.keys(arrayFilters[0])[0], "==",
+                        arrayFilters[0][Object.keys(arrayFilters[0])[0]]))
+                break;
+            case 2:
+                q = query(publicacionesRef,
+                    where(Object.keys(arrayFilters[0])[0], "==",
+                        arrayFilters[0][Object.keys(arrayFilters[0])[0]]),
+                    where(Object.keys(arrayFilters[1])[0], "==",
+                        arrayFilters[1][Object.keys(arrayFilters[1])[0]]))
+                break;
+            case 3:
+                q = query(publicacionesRef,
+                    where(Object.keys(arrayFilters[0])[0], "==",
+                        arrayFilters[0][Object.keys(arrayFilters[0])[0]]),
+                    where(Object.keys(arrayFilters[1])[0], "==",
+                        arrayFilters[1][Object.keys(arrayFilters[1])[0]]),
+                    where(Object.keys(arrayFilters[2])[0], "==",
+                        arrayFilters[2][Object.keys(arrayFilters[2])[0]]))
+                break;
+            case 4:
+                q = query(publicacionesRef,
+                    where(Object.keys(arrayFilters[0])[0], "==",
+                        arrayFilters[0][Object.keys(arrayFilters[0])[0]]),
+                    where(Object.keys(arrayFilters[1])[0], "==",
+                        arrayFilters[1][Object.keys(arrayFilters[1])[0]]),
+                    where(Object.keys(arrayFilters[2])[0], "==",
+                        arrayFilters[2][Object.keys(arrayFilters[2])[0]]),
+                    where(Object.keys(arrayFilters[3])[0], "==",
+                        arrayFilters[3][Object.keys(arrayFilters[3])[0]]))
+                break;
+            default:
+                return;
+        }
+        const querySnapshot = await getDocs(q)
+
+            const tempArray = []
+
+            querySnapshot.forEach(doc => {
+                const data = doc.data()
+                tempArray.push(data)
+            })
+
+            setPublicaciones(tempArray)
+
     }
 
     // DIRECCION DE LA PAGINA ACTUAL
@@ -96,17 +151,12 @@ function SearchPage() {
             <div className="SearchPage__main">
                 <div className="PostPage__main--container">
                     <div className="row">
-
-                        <div className="col-1"></div>
-                        <div className="col text-center">Aqui va la barra de búsqueda</div>
-                        <div className="col-1"></div>
-                        
-                    </div>
-                    <div className="row">
-                        <div className="col-3"><FiltrosBusqueda/></div>
+                        <div className="col-3"><FiltrosBusqueda
+                            filterBusqueda={getFilteredDocuments}
+                        /></div>
                         <div className="col"><NewCardList publicaciones={publicaciones} /></div>
-                    </div> 
-                    
+                    </div>
+
                 </div>
             </div>
             <div className="SearchPage_main">
